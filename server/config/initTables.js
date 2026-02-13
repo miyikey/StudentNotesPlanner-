@@ -24,12 +24,24 @@ async function createTables() {
 
     // Grades table
     await pool.query(`
-      CREATE TABLE grades (
+      CREATE TABLE IF NOT EXISTS grades (
         id SERIAL PRIMARY KEY,
         user_id INT REFERENCES users(id),
         name VARCHAR(255),       -- e.g., "Math Exam 1"
         score NUMERIC,           -- the actual score
         weight NUMERIC,          -- weight of this assignment/exam
+        created_at TIMESTAMP DEFAULT NOW()
+      );
+    `);
+
+    // Assignments table
+    await pool.query(`
+      CREATE TABLE IF NOT EXISTS assignments (
+        id SERIAL PRIMARY KEY,
+        user_id INT REFERENCES users(id),
+        name VARCHAR(255) NOT NULL,    -- assignment name
+        code VARCHAR(50),               -- course code
+        due_date DATE NOT NULL,         -- due date
         created_at TIMESTAMP DEFAULT NOW()
       );
     `);
