@@ -22,6 +22,18 @@ async function createTables() {
       );
     `);
 
+    // Grades table
+    await pool.query(`
+      CREATE TABLE grades (
+        id SERIAL PRIMARY KEY,
+        user_id INT REFERENCES users(id),
+        name VARCHAR(255),       -- e.g., "Math Exam 1"
+        score NUMERIC,           -- the actual score
+        weight NUMERIC,          -- weight of this assignment/exam
+        created_at TIMESTAMP DEFAULT NOW()
+      );
+    `);
+
     console.log("Tables created successfully!");
     process.exit(0); // exit the script
   } catch (err) {
