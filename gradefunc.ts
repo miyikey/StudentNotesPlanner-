@@ -31,7 +31,13 @@ function getAssessmentScoreNeeded(goalGrade: number, Assessments: Assessment[]){
 
 //Calculates the WAM for a semester based on the courses completed in that semester.
 function getSemesterWAM(courses: Course[]){
-
+    let totalWAM: number = 0;
+    let totalCredits: number = 0;
+    for (let i = 0; i < courses.length; i++){
+        totalWAM += courses[i].grade * courses[i].credits;
+        totalCredits += courses[i].credits;
+    }
+    return totalWAM / totalCredits;
 }
 
 //Calculates the total WAM across all semesters completed.

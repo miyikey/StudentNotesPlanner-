@@ -11,6 +11,7 @@ export type Course = {
     name: string;
     credits: number;
     goalGrade: number;
+    grade: number;
     assessments: Assessment[];
 }
 
