@@ -5,6 +5,7 @@ const authMiddleware = require("../middleware/authMiddleware");
 const {
   createCourse,
   getCourses,
+  getCourseByCode,
   updateCourse,
   deleteCourse,
 } = require("../controllers/coursesController");
@@ -13,7 +14,8 @@ router.use(authMiddleware);
 
 router.post("/", createCourse);
 router.get("/", getCourses);
-router.put("/:id", updateCourse);
-router.delete("/:id", deleteCourse);
+router.get("/:code", getCourseByCode);
+router.put("/:code", updateCourse);
+router.delete("/:code", deleteCourse);
 
 module.exports = router;

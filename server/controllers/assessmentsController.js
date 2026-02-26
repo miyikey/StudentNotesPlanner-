@@ -3,7 +3,7 @@ const pool = require("../config/db");
 // CREATE assessment
 const createAssessment = async (req, res) => {
   const {
-    course_id,
+    course_code,
     name,
     weight,
     score_actual,
@@ -14,19 +14,19 @@ const createAssessment = async (req, res) => {
 
   const userId = req.user.userId;
 
-  if (!course_id || !name) {
-    return res.status(400).json({ message: "course_id and name required" });
+  if (!course_code || !name) {
+    return res.status(400).json({ message: "course_code and name required" });
   }
 
   try {
     const result = await pool.query(
       `INSERT INTO assessments 
-      (user_id, course_id, name, weight, score_actual, score_out_of, due_date, is_completed)
+      (user_id, course_code, name, weight, score_actual, score_out_of, due_date, is_completed)
       VALUES ($1,$2,$3,$4,$5,$6,$7,$8)
       RETURNING *`,
       [
         userId,
-        course_id,
+        course_code,
         name,
         weight,
         score_actual,
@@ -45,15 +45,15 @@ const createAssessment = async (req, res) => {
 
 // GET assessments for course
 const getAssessments = async (req, res) => {
-  const { courseId } = req.params;
+  const { courseCode } = req.params;
   const userId = req.user.userId;
 
   try {
     const result = await pool.query(
       `SELECT * FROM assessments
-       WHERE course_id=$1 AND user_id=$2
+       WHERE course_code=$1 AND user_id=$2
        ORDER BY due_date ASC`,
-      [courseId, userId]
+      [courseCode, userId]
     );
 
     res.json(result.rows);

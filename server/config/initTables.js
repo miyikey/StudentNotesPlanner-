@@ -59,6 +59,7 @@ async function createTables() {
     await pool.query(`
       CREATE TABLE courses (
         id SERIAL PRIMARY KEY,
+        code TEXT UNIQUE NOT NULL,
         user_id INT REFERENCES users(id),
         semester_id INT,
         name TEXT NOT NULL,
@@ -72,7 +73,7 @@ async function createTables() {
     await pool.query(`
       CREATE TABLE assessments (
         id SERIAL PRIMARY KEY,
-        course_id INT REFERENCES courses(id) ON DELETE CASCADE,
+        course_code TEXT REFERENCES courses(code) ON DELETE CASCADE,
         user_id INT REFERENCES users(id),
         name TEXT,
         weight NUMERIC,

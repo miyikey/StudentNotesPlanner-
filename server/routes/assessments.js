@@ -12,7 +12,7 @@ const {
 router.use(authMiddleware);
 
 router.post("/", createAssessment);
-router.get("/:courseId", getAssessments);
+router.get("/:courseCode", getAssessments);
 router.put("/:id", updateAssessment);
 router.delete("/:id", deleteAssessment);
 
