@@ -8,6 +8,9 @@ const gradesRoutes = require("./routes/grades");
 const assignmentsRoutes = require("./routes/assignments");
 const coursesRoutes = require("./routes/courses");
 const assessmentsRoutes = require("./routes/assessments");
+const degreesRoutes = require("./routes/degrees");
+const semestersRoutes = require("./routes/semesters");
+const summaryRoutes = require("./routes/summary");
 
 dotenv.config();
 
@@ -22,5 +25,8 @@ app.use("/grades", gradesRoutes);
 app.use("/assignments", assignmentsRoutes);
 app.use("/courses", coursesRoutes);
 app.use("/assessments", assessmentsRoutes);
+app.use("/degrees", degreesRoutes);
+app.use("/semesters", semestersRoutes);
+app.use("/summary", summaryRoutes);
 
 module.exports = app;
